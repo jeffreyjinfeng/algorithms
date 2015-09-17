@@ -1,0 +1,74 @@
+import java.util.LinkedList;
+
+
+public class MyStack {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MyStack stack = new MyStack();
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		stack.push(5);
+		stack.push(534);
+		stack.push(53);
+		System.out.println(stack.queue1.size());
+		System.out.println(stack.top());
+	}
+
+	
+    // Push element x onto stack.
+    LinkedList<Integer> queue1 = new LinkedList<Integer>();
+    LinkedList<Integer> queue2 = new LinkedList<Integer>();
+    LinkedList<Integer> temp;
+    public void push(int x) {
+        queue1.add(x);        
+    }
+
+    // Removes the element on top of the stack.
+    public void pop() {
+        if (queue1.size() == 1) {
+            queue1.remove();
+        } else {
+            int size = queue1.size();
+            for (int i = 0; i < size; i++) {
+                if (i != size - 1) {
+                    queue2.add(queue1.remove());
+                } else {
+                    queue1.remove();
+                }
+                temp = queue1;
+                queue1 = queue2;
+                queue2 = temp;
+            }
+        }
+    }
+
+    // Get the top element.
+    public int top() {
+        int returnV = 0;
+        if (queue1.size() == 1) {
+            returnV = queue1.remove();
+            queue1.add(returnV);
+        } else {
+            int size = queue1.size();
+            for (int i = 0; i < size; i++) {
+                if (i != size - 1) {
+                    queue2.add(queue1.remove());
+                } else {
+                    returnV = queue1.remove();
+                    queue2.add(returnV);
+                }
+                temp = queue1;
+                queue1 = queue2;
+                queue2 = temp;
+            }
+        }
+        return returnV;
+    }
+
+    // Return whether the stack is empty.
+    public boolean empty() {
+        return queue1.isEmpty();
+    }
+}
